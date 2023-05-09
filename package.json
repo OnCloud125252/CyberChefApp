@@ -1,0 +1,20 @@
+{
+    "type": "commonjs",
+    "name": "CyberChefApp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "electron": "^24.2.0",
+        "eslint": "^8.40.0"
+    },
+    "dependencies": {
+        "cheerio": "1.0.0-rc.12"
+    }
+}

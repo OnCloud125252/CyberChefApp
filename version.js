@@ -1,0 +1,1 @@
+module.exports.CyberChefVersion = "v10.4.0";
