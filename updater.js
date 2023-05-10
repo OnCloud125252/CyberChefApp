@@ -54,6 +54,7 @@ async function isOutdated() {
         const data = await fs.readFile(versionFile, "utf8");
         const jsonData = JSON.parse(data);
 
+        jsonData.localApp = await haveRequiredFiles() ? localApp : "";
         jsonData.remoteApp = remoteAppVersion;
 
         try {
@@ -64,10 +65,20 @@ async function isOutdated() {
             return;
         }
 
-        return remoteAppVersion !== localApp;
+        return remoteAppVersion !== jsonData.localApp;
     } catch (error) {
         console.error("Error reading version:", error);
         return;
+    }
+}
+
+async function haveRequiredFiles() {
+    try {
+        const fileList = await fs.readdir(appSource);
+        return fileList.some((fileName) => /^CyberChef_[\d.]+\.html$/.test(fileName));
+    } catch (error) {
+        console.log(error);
+        return false;
     }
 }
 
