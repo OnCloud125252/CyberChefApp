@@ -1,10 +1,12 @@
 const { BrowserWindow } = require("electron");
 const path = require("path");
 
+const { injectHtml } = require("./injectors.js");
+
 
 const currentDir = __dirname;
 
-module.exports.mainWindow = (loadingWindow, CyberChefVersion) => {
+module.exports.mainWindow = async (loadingWindow, CyberChefVersion) => {
     const mainWindow = new BrowserWindow({
         width: 1300,
         height: 800,
@@ -14,6 +16,8 @@ module.exports.mainWindow = (loadingWindow, CyberChefVersion) => {
         },
         show: false
     });
+
+    await injectHtml(CyberChefVersion);
 
     mainWindow.loadFile(path.join(currentDir, "appSource", `CyberChef_${CyberChefVersion}.html`));
 

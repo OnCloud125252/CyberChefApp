@@ -1,8 +1,8 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
-const { CyberChefVersion } = require("./version.js");
-const { injectHtml } = require("./injectors.js");
+// const { localApp: localAppVersion } = require("./version.json");
+const { updater } = require("./updater.js");
 const { mainWindow } = require("./main.js");
 
 
@@ -35,9 +35,9 @@ async function createWindow() {
     loadingWindow.loadFile(path.join(currentDir, "components", "loader", `${loaderType}.html`));
 
     loadingWindow.once("ready-to-show", async () => {
-        // await delay(3000); // Do update
-        await injectHtml(CyberChefVersion);
-        mainWindow(loadingWindow, CyberChefVersion);
+        const localAppVersion = await updater();
+        await delay(500);
+        mainWindow(loadingWindow, localAppVersion);
     });
 }
 
